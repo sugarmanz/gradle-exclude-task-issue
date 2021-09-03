@@ -1,38 +1,30 @@
-plugins {
-//    id("net.researchgate.release") version "2.6.0"
-    id("org.barfuin.gradle.taskinfo") version "1.3.0"
-    id("aggregate-groovy")
-}
-
-//release {
-//    failOnUpdateNeeded = false
-//    failOnCommitNeeded = false
-//    failOnPublishNeeded = false
-//    failOnSnapshotDependencies = false
-//}
-
 tasks {
-    val build by creating {
+    val first by creating {
         doLast {
-            println("build")
+            println("first")
         }
     }
 
-    val afterBuild by creating {
+    val second by creating {
         doLast {
-            println("afterBuild")
+            println("second")
         }
 
-        mustRunAfter(build)
+        dependsOn(first)
     }
 
-    build.finalizedBy(afterBuild)
+    task<GradleBuild>("both") {
+        startParameter = gradle.startParameter.newInstance().apply {
+            println("excluded tasks: $excludedTaskNames")
+        }
 
+        tasks = listOf(
+            first.name,
+            second.name
+        )
 
-//    task<GradleBuild>("all") {
-//        tasks = listOf(
-//            build.name,
-//            afterBuild.name
-//        )
-//    }
+        doLast {
+            println("both")
+        }
+    }
 }
