@@ -7,7 +7,9 @@ class AggregatePlugin : Plugin<Project> {
 
     override fun apply(project: Project) {
 
-        project.task<GradleBuild>("container") {
+        project.task<GradleBuild>("all") {
+            startParameter = project.gradle.startParameter.newInstance()
+
             tasks = listOf(
                 "first",
                 "second"
