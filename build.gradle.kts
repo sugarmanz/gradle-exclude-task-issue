@@ -4,12 +4,12 @@ plugins {
     id("aggregate-groovy")
 }
 
-release {
-    failOnUpdateNeeded = false
-    failOnCommitNeeded = false
-    failOnPublishNeeded = false
-    failOnSnapshotDependencies = false
-}
+//release {
+//    failOnUpdateNeeded = false
+//    failOnCommitNeeded = false
+//    failOnPublishNeeded = false
+//    failOnSnapshotDependencies = false
+//}
 
 tasks {
     val build by creating {
@@ -29,10 +29,10 @@ tasks {
     build.finalizedBy(afterBuild)
 
 
-    task<GradleBuild>("all") {
-        tasks = listOf(
-            build.name,
-            afterBuild.name
-        )
-    }
+//    task<GradleBuild>("all") {
+//        tasks = listOf(
+//            build.name,
+//            afterBuild.name
+//        )
+//    }
 }
